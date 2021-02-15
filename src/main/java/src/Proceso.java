@@ -16,7 +16,9 @@ public class Proceso {
         System.out.println("============================================================");
         System.out.println("Patron Obtenido:" + patron);
         System.out.println("============================================================");
-  /*
+ 
+        
+         
         //OBTENGO RESULTADOS DE LA BD CON EL PATRON OBTENIDO   
         String resultados=con.getResultado(patron);
         System.out.println("Resultados \n" + resultados);
@@ -25,8 +27,8 @@ public class Proceso {
         System.out.println("============================================================");
         System.out.println("Enviando Resultados"); 
         smtp.sendEmail(patron, resultados);
-        
-    */    
+       
+       
     }
 
 }

@@ -53,49 +53,7 @@ public class ClientePOP {
         return patron;
     }
     
-    public void nroEmails(){
-           try {
-            //se establece conexion abriendo un socket especificando el servidor y puerto SMTP
-            Socket socket = new Socket(servidor, puerto);
-            BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            DataOutputStream salida = new DataOutputStream(socket.getOutputStream());
-            // Escribimos datos en el canal de salida establecido con el puerto del protocolo SMTP del servidor
-            if (socket != null && entrada != null && salida != null) {
-                System.out.println("S : " + entrada.readLine() + "\r\n");
-
-                comando = "USER " + usuario + "\r\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
-                System.out.println("S : " + entrada.readLine() + "\r\n");
-
-                comando = "PASS " + contrasena + "\r\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
-                System.out.println("S : " + entrada.readLine() + "\r\n");
   
-
-                comando = "STAT\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
-                System.out.println("S : " + getMultiline(entrada) + "\r\n");
-        
-                comando = "QUIT\r\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
-                System.out.println("S : " + entrada.readLine() + "\r\n");
-            }
-            // Cerramos los flujos de salida y de entrada y el socket cliente
-            salida.close();
-            entrada.close();
-            socket.close();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            System.out.println(" S : no se pudo conectar con el servidor indicado");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-    }
    
     public void leerEmail(int nro) {
             

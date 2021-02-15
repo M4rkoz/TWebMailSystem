@@ -8,8 +8,8 @@ public class ClienteSMTP {
 
     String servidor = "mail.tecnoweb.org.bo";
     //String servidor="172.20.172.254";
-    String user_receptor = "grupo01sa@tecnoweb.org.bo";
-    String user_emisor = "espaderoefrain@gmail.com";
+    String user_receptor = "grupo12sc@tecnoweb.org.bo";
+    String user_emisor = "grupo12sc@tecnoweb.org.bo";
     String line;
     String comando = "";
     int puerto = 25;
@@ -44,10 +44,18 @@ public class ClienteSMTP {
                 salida.writeBytes(comando);
                 System.out.println("S : " + getMultiline(entrada));
 
-                comando = "SUBJECT:\n"+"Patron:"+patron+"\n"+"Resultado de Consulta a BD\n"+data+ "\n.\r\n";//DEMO EEC\r\n"+"Probando\n"+"el envio de mensajes\n"+".\r\n";
+                comando = "SUBJECT:\n"+"Patron:"+patron+"\n"+"<h1>Resultado de Consulta a BD</h1>\n"+data+ "\n.\r\n";//DEMO EEC\r\n"+"Probando\n"+"el envio de mensajes\n"+".\r\n";
                 System.out.print("C : " + comando);
                 salida.writeBytes(comando);
                 System.out.println("S : " + entrada.readLine());
+                
+                comando = "Mime-Version: 1.0\n";
+                System.out.print("C : " + comando);
+                salida.writeBytes(comando);
+                comando = "Content-Type: text/html\n";
+                System.out.print("C : " + comando);
+                salida.writeBytes(comando);
+           //     System.out.println("S : " + getMultiline(entrada));
 
                 comando = "QUIT\r\n";
                 System.out.print("C : " + comando);
