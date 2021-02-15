@@ -1,4 +1,4 @@
-package src;
+package Negocio;
 
 import java.io.*;
 import java.net.*;
@@ -49,12 +49,7 @@ public class ClienteSMTP {
                 salida.writeBytes(comando);
                 System.out.println("S : " + entrada.readLine());
                 
-                comando = "Mime-Version: 1.0\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
-                comando = "Content-Type: text/html\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
+      
            //     System.out.println("S : " + getMultiline(entrada));
 
                 comando = "QUIT\r\n";
@@ -73,6 +68,20 @@ public class ClienteSMTP {
             e.printStackTrace();
         }
 
+    }
+    
+    public Socket openSmtpConnection(){
+         Socket socket=null;
+       try{
+            socket = new Socket(servidor, puerto);
+       }catch(IOException e){
+         
+           System.out.println("Ocurrio un error al Iniciar el Socket: "+e);
+       }
+      
+       
+       return socket;
+    
     }
 
  

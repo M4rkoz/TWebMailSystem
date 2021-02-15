@@ -1,6 +1,10 @@
 
 package src;
 
+import Negocio.ClientePOP;
+import Negocio.ClienteSMTP;
+import Datos.ConexionPGSQL;
+
 
 public class Proceso {
 
@@ -9,7 +13,7 @@ public class Proceso {
         ClienteSMTP smtp=new ClienteSMTP();
         ConexionPGSQL con = new ConexionPGSQL();
         //LEEMOS EL EMAIL DE DONDE OBTENDREMOS EL PATRON
-        pop.leerEmail(1);
+    /*    pop.leerEmail(1);
          
         //OBTENEMOS EL PATRON, DEL EMAIL EN DONDE TENGO QUE OBTENER MI PATRON
         String patron = pop.getPatron(1);
@@ -27,7 +31,8 @@ public class Proceso {
         System.out.println("============================================================");
         System.out.println("Enviando Resultados"); 
         smtp.sendEmail(patron, resultados);
-       
+      */
+        System.out.println("La cantidad de mensajes es:"+pop.cantidadMensajes());
        
     }
 
