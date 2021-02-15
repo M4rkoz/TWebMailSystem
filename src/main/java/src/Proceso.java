@@ -4,6 +4,7 @@ package src;
 import Negocio.ClientePOP;
 import Negocio.ClienteSMTP;
 import Datos.ConexionPGSQL;
+import Negocio.MainProcess;
 
 
 public class Proceso {
@@ -32,8 +33,11 @@ public class Proceso {
         System.out.println("Enviando Resultados"); 
         smtp.sendEmail(patron, resultados);
       */
-        System.out.println("La cantidad de mensajes es:"+pop.cantidadMensajes());
-        System.out.println("El email es:"+pop.getEmail(13));
+     //   System.out.println("La cantidad de mensajes es:"+pop.cantidadMensajes());
+       // System.out.println("El email es:"+pop.getEmail(13));
+       
+       MainProcess mainp=new MainProcess();
+       mainp.readMessages();
        
     }
 
