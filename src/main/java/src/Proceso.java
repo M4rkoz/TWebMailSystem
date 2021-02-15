@@ -33,6 +33,7 @@ public class Proceso {
         smtp.sendEmail(patron, resultados);
       */
         System.out.println("La cantidad de mensajes es:"+pop.cantidadMensajes());
+        System.out.println("El email es:"+pop.getEmail(13));
        
     }
 
