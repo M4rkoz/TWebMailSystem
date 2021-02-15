@@ -8,7 +8,7 @@ public class ClientePOP {
 
     String servidor = "mail.tecnoweb.org.bo";
     //String servidor="172.20.172.254";
-    String usuario = "grupo12sa";
+    String usuario = "grupo12sc";
     String contrasena = "grup012grup012";
     String comando = "";
     String linea = "";
@@ -53,9 +53,52 @@ public class ClientePOP {
         return patron;
     }
     
+    public void nroEmails(){
+           try {
+            //se establece conexion abriendo un socket especificando el servidor y puerto SMTP
+            Socket socket = new Socket(servidor, puerto);
+            BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            DataOutputStream salida = new DataOutputStream(socket.getOutputStream());
+            // Escribimos datos en el canal de salida establecido con el puerto del protocolo SMTP del servidor
+            if (socket != null && entrada != null && salida != null) {
+                System.out.println("S : " + entrada.readLine() + "\r\n");
+
+                comando = "USER " + usuario + "\r\n";
+                System.out.print("C : " + comando);
+                salida.writeBytes(comando);
+                System.out.println("S : " + entrada.readLine() + "\r\n");
+
+                comando = "PASS " + contrasena + "\r\n";
+                System.out.print("C : " + comando);
+                salida.writeBytes(comando);
+                System.out.println("S : " + entrada.readLine() + "\r\n");
+  
+
+                comando = "STAT\n";
+                System.out.print("C : " + comando);
+                salida.writeBytes(comando);
+                System.out.println("S : " + getMultiline(entrada) + "\r\n");
+        
+                comando = "QUIT\r\n";
+                System.out.print("C : " + comando);
+                salida.writeBytes(comando);
+                System.out.println("S : " + entrada.readLine() + "\r\n");
+            }
+            // Cerramos los flujos de salida y de entrada y el socket cliente
+            salida.close();
+            entrada.close();
+            socket.close();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            System.out.println(" S : no se pudo conectar con el servidor indicado");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
    
     public void leerEmail(int nro) {
-
+            
         try {
             //se establece conexion abriendo un socket especificando el servidor y puerto SMTP
             Socket socket = new Socket(servidor, puerto);
@@ -120,7 +163,7 @@ public class ClientePOP {
 
             }
 
-            if (line.contains("SUBJECT:")) {
+            if (line.contains("Subject:")) {
                 //SI ESTAMOS EN LA LINEA DEL SUBJECT EXTRAEMOS EL PATRON Y ROMPEMOS EL CICLO
                 patron = line.substring(8);
                 patron = patron.trim();
