@@ -59,7 +59,10 @@ public class MainProcess {
           for (int i = 1; i <= nroMensajes; i++) {
           
               String email=pop.getEmail(i, popSocket, entradaPop, salidadPop);
+              String patron=pop.getPatron(i, popSocket, entradaPop, salidadPop);
+               
               System.out.println("El Email es: "+email);
+              System.out.println("El patron es: "+patron);
           
           }
           
@@ -70,7 +73,7 @@ public class MainProcess {
       pop.cerrarSesionPop(popSocket, entradaPop, salidadPop);
       
       
-        System.out.println("LA CANTIDAD DE MENSAJES ES:"+nroMensajes);
+       System.out.println("LA CANTIDAD DE MENSAJES ES:"+nroMensajes);
       
       
         

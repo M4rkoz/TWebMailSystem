@@ -66,6 +66,8 @@ public class ClientePOP {
 
             comando = "QUIT\r\n";
             salidaPop.writeBytes(comando);
+            System.out.println("C: "+comando);
+            
 
             // Cerramos los flujos de salida y de entrada y el socket cliente
             salidaPop.close();
@@ -80,39 +82,22 @@ public class ClientePOP {
 
     public String getPatron(int nroemail, Socket popSocket, BufferedReader entradaPop, DataOutputStream salidaPop) {
         String patron = "";
-        /*  try {
-            //se establece conexion abriendo un socket especificando el servidor y puerto SMTP
-            Socket socket = new Socket(servidor, puerto);
-            BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            DataOutputStream salida = new DataOutputStream(socket.getOutputStream());
-            // Escribimos datos en el canal de salida establecido con el puerto del protocolo SMTP del servidor
-         */
-
         try {
             comando = "RETR " + nroemail + "\n";
             salidaPop.writeBytes(comando);
             patron = obtenerPatron(entradaPop);
+            
+    //Esta linea es importante getMultiline, es para no desbordar el bufferedReader
+            getMultiline(entradaPop);
 
         } catch (IOException e) {
             System.out.println("Se produjo un error en el metodo getPatron: " + e);
         }
-//                comando = "QUIT\r\n";
-//        
-//                salida.writeBytes(comando);
-
-        // Cerramos los flujos de salida y de entrada y el socket cliente
-        /*       salida.close();
-            entrada.close();
-            socket.close();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            System.out.println(" S : no se pudo conectar con el servidor indicado");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }                     */
         return patron;
     }
 
+    
+    
     public Socket openPopConnection() {
         Socket socket = null;
         try {
@@ -310,7 +295,7 @@ public class ClientePOP {
 
             }
 
-            if (line.contains("Subject:")) {
+            if (line.contains("Subject:") || line.contains("SUBJECT:")) {
                 //SI ESTAMOS EN LA LINEA DEL SUBJECT EXTRAEMOS EL PATRON Y ROMPEMOS EL CICLO
                 patron = line.substring(8);
                 patron = patron.trim();
