@@ -104,7 +104,12 @@ public class ClienteSMTP {
             System.out.println("S : " + entradaSmtp.readLine());
 //            System.out.println("S : " + getMultiline(entradaSmtp));
 
-            comando = "SUBJECT:\n" + "Patron:" + patron + "\n" + "<h1>Resultado de Consulta a BD</h1>\n" + data + "\n.\r\n";//DEMO EEC\r\n"+"Probando\n"+"el envio de mensajes\n"+".\r\n";
+           // comando = "SUBJECT:\n" + "Patron:" + patron + "\n" + "<h1>Resultado de Consulta a BD</h1>\n" + data + "\n.\r\n";//DEMO EEC\r\n"+"Probando\n"+"el envio de mensajes\n"+".\r\n";
+           
+            comando = "Subject: Respuesta al Comando : " + patron + "\r\n"
+                        + "Content-Type: text/html; charset=\"UTF-8\"\n"
+                        + "<h1 style=\"color:red;\">Sistema Gestion de Condominios - Grupo12SC </h1>\n" + data + "\n"
+                        + ".\r\n";
             System.out.print("C : " + comando);
             salidaSmtp.writeBytes(comando);
             System.out.println("S : " + entradaSmtp.readLine());

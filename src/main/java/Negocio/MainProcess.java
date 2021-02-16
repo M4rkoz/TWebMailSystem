@@ -17,13 +17,14 @@ public class MainProcess {
       ClientePOP pop;
       ClienteSMTP smtp;
       ConexionPGSQL db;
+      Analizador analizer;
       
       
       public MainProcess(){
       pop=new ClientePOP();
       smtp= new ClienteSMTP();
       db= new ConexionPGSQL();
-   
+      analizer=new Analizador();
      }
     
     
@@ -70,13 +71,16 @@ public class MainProcess {
           for (int i = 1; i <= nroMensajes; i++) {
           
               //Captura de Email
-              String email=pop.getEmail(i, popSocket, entradaPop, salidaPop);
+              String email="grupo16sc@tecnoweb.org.bo";//pop.getEmail(i, popSocket, entradaPop, salidaPop);
               //Captura del Patron
               String patron=pop.getPatron(i, entradaPop, salidaPop);
+              //Analizando el Patron
+              
               //Obtencion de resultado
-              String resultados=db.getResultado(patron);
-                    
+              String resultados=analizer.procesarPatron(patron); //db.getResultado(patron);
+              //Enviando Resultados al Email      
               smtp.sendEmail(patron,email, resultados,entradaSmtp,salidaSmtp);
+              //Eliminando el Mensaje respondido
               pop.eliminarMensaje(i, entradaPop, salidaPop);
               
               System.out.println("El Email es: "+email);
