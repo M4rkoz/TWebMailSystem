@@ -41,26 +41,44 @@ public class MainProcess {
     
     public void readMessages(){
       
+        //INICIO PROTOCOLO POP
       int nroMensajes;
       BufferedReader entradaPop;
-      DataOutputStream salidadPop;  
+      DataOutputStream salidaPop;  
       Socket popSocket=pop.openPopConnection();
       
       entradaPop=pop.entradaPop(popSocket);
-      salidadPop=pop.salidaPop(popSocket);
+      salidaPop=pop.salidaPop(popSocket);
       
-      pop.iniciarSesionPop(popSocket, entradaPop, salidadPop);
+      pop.iniciarSesionPop(popSocket, entradaPop, salidaPop);
       
+      // FIN PROTOCOLO POP
+      //INICIO PROTOCOLO SMTP
+      BufferedReader entradaSmtp;
+      DataOutputStream salidaSmtp; 
+     
+      Socket smtpSocket=smtp.openSmtpConnection();
+      entradaSmtp=smtp.entradaSmtp(smtpSocket);
+      salidaSmtp=smtp.salidaSmtp(smtpSocket);
+     
+      smtp.iniciarSesionSmtp(smtpSocket, entradaSmtp, salidaSmtp);
+      //FIN PROTOCOLO SMTP
       
-      
-      nroMensajes=pop.cantidadMensajes(popSocket,entradaPop,salidadPop);
+      nroMensajes=pop.cantidadMensajes(popSocket,entradaPop,salidaPop);
       if(nroMensajes>0){
        
           for (int i = 1; i <= nroMensajes; i++) {
           
-              String email=pop.getEmail(i, popSocket, entradaPop, salidadPop);
-              String patron=pop.getPatron(i, popSocket, entradaPop, salidadPop);
-               
+              //Captura de Email
+              String email=pop.getEmail(i, popSocket, entradaPop, salidaPop);
+              //Captura del Patron
+              String patron=pop.getPatron(i, entradaPop, salidaPop);
+              //Obtencion de resultado
+              String resultados=db.getResultado(patron);
+                    
+              smtp.sendEmail(patron,email, resultados,entradaSmtp,salidaSmtp);
+              pop.eliminarMensaje(i, entradaPop, salidaPop);
+              
               System.out.println("El Email es: "+email);
               System.out.println("El patron es: "+patron);
           
@@ -70,7 +88,8 @@ public class MainProcess {
        }
       
       
-      pop.cerrarSesionPop(popSocket, entradaPop, salidadPop);
+      smtp.cerrarSesionSmtp(smtpSocket, entradaSmtp, salidaSmtp);
+      pop.cerrarSesionPop(popSocket, entradaPop, salidaPop);
       
       
        System.out.println("LA CANTIDAD DE MENSAJES ES:"+nroMensajes);

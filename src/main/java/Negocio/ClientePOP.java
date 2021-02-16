@@ -80,7 +80,7 @@ public class ClientePOP {
 
     }
 
-    public String getPatron(int nroemail, Socket popSocket, BufferedReader entradaPop, DataOutputStream salidaPop) {
+    public String getPatron(int nroemail, BufferedReader entradaPop, DataOutputStream salidaPop) {
         String patron = "";
         try {
             comando = "RETR " + nroemail + "\n";
@@ -94,6 +94,19 @@ public class ClientePOP {
             System.out.println("Se produjo un error en el metodo getPatron: " + e);
         }
         return patron;
+    }
+    
+      public void eliminarMensaje(int nroMensaje, BufferedReader entradaSmtp, DataOutputStream salidaSmtp) {
+
+        try {
+            comando = "DELE " + nroMensaje + "\r\n";
+            System.out.print("C : " + comando);
+            salidaSmtp.writeBytes(comando);
+            System.out.println("S : " + entradaSmtp.readLine());
+        } catch (Exception e) {
+            System.out.println("Se produjo un error en el metodo eliminarMensaje():" + e);
+        }
+
     }
 
     

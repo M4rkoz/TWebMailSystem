@@ -14,77 +14,124 @@ public class ClienteSMTP {
     String comando = "";
     int puerto = 25;
 
-    public void sendEmail(String patron,String data) {
+    public BufferedReader entradaSmtp(Socket smtpSocket) {
         try {
-            //se establece conexion abriendo un socket especificando el servidor y puerto SMTP
-            Socket socket = new Socket(servidor, puerto);
-            BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            DataOutputStream salida = new DataOutputStream(socket.getOutputStream());
-            // Escribimos datos en el canal de salida establecido con el puerto del protocolo SMTP del servidor
-            if (socket != null && entrada != null && salida != null) {
-                System.out.println("S : " + entrada.readLine());
 
-                comando = "HELO " + servidor + " \r\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
-                System.out.println("S : " + getMultiline(entrada));
-
-                comando = "MAIL FROM : " + user_emisor + " \r\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
-                System.out.println("S : " + entrada.readLine());
-
-                comando = "RCPT TO : " + user_receptor + " \r\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
-                System.out.println("S : " + entrada.readLine());
-
-                comando = "DATA\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
-                System.out.println("S : " + getMultiline(entrada));
-
-                comando = "SUBJECT:\n"+"Patron:"+patron+"\n"+"<h1>Resultado de Consulta a BD</h1>\n"+data+ "\n.\r\n";//DEMO EEC\r\n"+"Probando\n"+"el envio de mensajes\n"+".\r\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
-                System.out.println("S : " + entrada.readLine());
-                
-      
-           //     System.out.println("S : " + getMultiline(entrada));
-
-                comando = "QUIT\r\n";
-                System.out.print("C : " + comando);
-                salida.writeBytes(comando);
-                System.out.println("S : " + entrada.readLine());
-            }
-            // Cerramos los flujos de salida y de entrada y el socket cliente
-            salida.close();
-            entrada.close();
-            socket.close();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            System.out.println(" S : No se pudo conectar con el servidor indicado");
+            return new BufferedReader(new InputStreamReader(smtpSocket.getInputStream()));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error En el Metodo EntradaPop(): " + e);
+            return null;
         }
 
     }
-    
-    public Socket openSmtpConnection(){
-         Socket socket=null;
-       try{
-            socket = new Socket(servidor, puerto);
-       }catch(IOException e){
-         
-           System.out.println("Ocurrio un error al Iniciar el Socket: "+e);
-       }
-      
-       
-       return socket;
-    
+
+    public DataOutputStream salidaSmtp(Socket smtpSocket) {
+        try {
+
+            return new DataOutputStream(smtpSocket.getOutputStream());
+        } catch (IOException e) {
+            System.out.println("Error En el Metodo salidadPop(): " + e);
+            return null;
+        }
+
     }
 
- 
+    public void iniciarSesionSmtp(Socket smtpSocket, BufferedReader entradaSmtp, DataOutputStream salidaSmtp) {
+
+        try {
+
+            System.out.println("S : " + entradaSmtp.readLine());
+
+//            comando = "HELO " + servidor + " \r\n";
+//            System.out.print("C : " + comando);
+//            salidaSmtp.writeBytes(comando);
+//            System.out.println("S : " + entradaSmtp.readLine());
+//            //System.out.println("S : " + getMultiline(entradaSmtp));
+//
+//            comando = "MAIL FROM : " + user_emisor + " \r\n";
+//            System.out.print("C : " + comando);
+//            salidaSmtp.writeBytes(comando);
+//            System.out.println("S : " + entradaSmtp.readLine());
+
+        } catch (IOException e) {
+            System.out.println("Se producjo un error en el Metodo iniciarSesionPop: " + e);
+        }
+
+    }
+
+    public void cerrarSesionSmtp(Socket smtpSocket, BufferedReader entradaSmtp, DataOutputStream salidaSmtp) {
+
+        try {
+
+            comando = "QUIT\r\n";
+            System.out.print("C : " + comando);
+            salidaSmtp.writeBytes(comando);
+            System.out.println("S : " + entradaSmtp.readLine());
+
+            // Cerramos los flujos de salida y de entrada y el socket cliente
+            salidaSmtp.close();
+            entradaSmtp.close();
+            smtpSocket.close();
+
+        } catch (IOException e) {
+            System.out.println("Se producjo un error en el Metodo CerrarSesionPop: " + e);
+        }
+
+    }
+
+  
+
+    public void sendEmail(String patron, String email, String data, BufferedReader entradaSmtp, DataOutputStream salidaSmtp) {
+        try {
+
+//                comando = "HELO " + servidor + " \r\n";
+//                System.out.print("C : " + comando);
+//                salida.writeBytes(comando);
+//                System.out.println("S : " + getMultiline(entrada));
+            comando = "MAIL FROM : " + user_emisor + " \r\n";
+            System.out.print("C : " + comando);
+            salidaSmtp.writeBytes(comando);
+            System.out.println("S : " + entradaSmtp.readLine());
+
+            comando = "RCPT TO : " + email + " \r\n";
+            System.out.print("C : " + comando);
+            salidaSmtp.writeBytes(comando);
+            System.out.println("S : " + entradaSmtp.readLine());
+
+            comando = "DATA\n";
+            System.out.print("C : " + comando);
+            salidaSmtp.writeBytes(comando);
+            System.out.println("S : " + entradaSmtp.readLine());
+//            System.out.println("S : " + getMultiline(entradaSmtp));
+
+            comando = "SUBJECT:\n" + "Patron:" + patron + "\n" + "<h1>Resultado de Consulta a BD</h1>\n" + data + "\n.\r\n";//DEMO EEC\r\n"+"Probando\n"+"el envio de mensajes\n"+".\r\n";
+            System.out.print("C : " + comando);
+            salidaSmtp.writeBytes(comando);
+            System.out.println("S : " + entradaSmtp.readLine());
+
+//                comando = "QUIT\r\n";
+//                System.out.print("C : " + comando);
+//                salida.writeBytes(comando);
+//                System.out.println("S : " + entrada.readLine());
+//        
+        } catch (IOException e) {
+            System.out.println("Se produjo un error en el Metodo SendEmail() :" + e);
+        }
+
+    }
+
+    public Socket openSmtpConnection() {
+        Socket socket = null;
+        try {
+            socket = new Socket(servidor, puerto);
+        } catch (IOException e) {
+
+            System.out.println("Ocurrio un error al Iniciar el Socket: " + e);
+        }
+
+        return socket;
+
+    }
 
     static protected String getMultiline(BufferedReader in) throws IOException {
         String lines = "";
