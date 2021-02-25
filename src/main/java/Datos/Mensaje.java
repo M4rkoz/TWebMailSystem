@@ -11,4 +11,6 @@ package Datos;
  */
 public class Mensaje {
     
+    int Numero;
+    String Texto;
 }

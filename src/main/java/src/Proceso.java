@@ -1,10 +1,10 @@
 
 package src;
 
-import Negocio.ClientePOP;
-import Negocio.ClienteSMTP;
+import Presentacion.ClientePOP;
+import Presentacion.ClienteSMTP;
 import Datos.ConexionPGSQL;
-import Negocio.MainProcess;
+import Presentacion.MainProcess;
 
 
 public class Proceso {

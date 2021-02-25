@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Negocio;
+package Presentacion;
+import Presentacion.ClientePOP;
+import Presentacion.ClienteSMTP;
 import Datos.*;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -71,7 +73,7 @@ public class MainProcess {
           for (int i = 1; i <= nroMensajes; i++) {
           
               //Captura de Email
-              String email="grupo16sc@tecnoweb.org.bo";//pop.getEmail(i, popSocket, entradaPop, salidaPop);
+              String email="grupo16sc@tecnoweb.org.bo" ;//pop.getEmail(i, popSocket, entradaPop, salidaPop);
               //Captura del Patron
               String patron=pop.getPatron(i, entradaPop, salidaPop);
               //Analizando el Patron
@@ -81,7 +83,7 @@ public class MainProcess {
               //Enviando Resultados al Email      
               smtp.sendEmail(patron,email, resultados,entradaSmtp,salidaSmtp);
               //Eliminando el Mensaje respondido
-              pop.eliminarMensaje(i, entradaPop, salidaPop);
+          //    pop.eliminarMensaje(i, entradaPop, salidaPop);  //NO ELIMINAREOS LOS EMAIL, PARA PRACTICA.
               
               System.out.println("El Email es: "+email);
               System.out.println("El patron es: "+patron);

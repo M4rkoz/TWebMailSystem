@@ -10,5 +10,14 @@ package Datos;
  * @author RedHat
  */
 public class Usuario {
+    int ci;
+    String nombre;
+    String FNacimiento;
+    String CElectronico;
+    char Sexo;
+    String Contrasena;
+    int Tipo;
+    
+            
     
 }

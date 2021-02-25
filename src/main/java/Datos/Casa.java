@@ -11,4 +11,7 @@ package Datos;
  */
 public class Casa {
     
+   int Numero;
+   String Tipo;
+    
 }

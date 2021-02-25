@@ -10,5 +10,6 @@ package Datos;
  * @author RedHat
  */
 public class CondominioServicio {
-    
+      String FCreaion;
+      int Estado;
 }

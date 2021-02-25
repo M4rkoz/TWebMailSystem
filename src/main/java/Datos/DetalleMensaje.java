@@ -10,5 +10,5 @@ package Datos;
  * @author RedHat
  */
 public class DetalleMensaje {
-    
+    String Fecha;
 }

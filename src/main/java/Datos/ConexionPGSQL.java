@@ -9,7 +9,47 @@ public class ConexionPGSQL {
     static String usuario="agenda";
     static String password="agendaagenda";
     
+      
     
+      public void getConnection(){
+          
+          try {
+              
+              
+           Connection pgsql=DriverManager.getConnection(BD, usuario, password);
+        
+                   
+          } catch (Exception e) {
+              
+              
+          }
+          
+    
+          
+          
+      }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  /*  
     public String getResultado(String patron){
        
         String resultado="";
@@ -38,6 +78,8 @@ public class ConexionPGSQL {
      return linea.trim();
         
     }
+    
+      */
     
     
 }

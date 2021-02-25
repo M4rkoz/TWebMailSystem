@@ -10,5 +10,8 @@ package Datos;
  * @author RedHat
  */
 public class Calle {
+    int Numero;
+    String varchar;
+    
     
 }

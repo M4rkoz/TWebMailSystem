@@ -10,5 +10,7 @@ package Datos;
  * @author RedHat
  */
 public class BoletaPago {
-    
+    String Codigo;
+    double Monto;
+    String FEmision; 
 }
