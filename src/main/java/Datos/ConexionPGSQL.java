@@ -5,26 +5,31 @@ import java.sql.*;
 import java.sql.DriverManager;
 
 public class ConexionPGSQL {
-    static String BD="jdbc:postgresql://www.tecnoweb.org.bo:5432/db_agenda";
-    static String usuario="agenda";
-    static String password="agendaagenda";
+    static String BD="jdbc:postgresql://www.tecnoweb.org.bo:5432/db_grupo12sc";
+    static String usuario="grupo12sc";
+    static String password="grup012grup012";
+      Connection con=null;
     
+    public ConexionPGSQL(){
+        
+    }
       
     
-      public void getConnection(){
+      public Connection getConnection(){
           
           try {
               
               
            Connection pgsql=DriverManager.getConnection(BD, usuario, password);
-        
+           con=pgsql;
                    
           } catch (Exception e) {
               
+              System.out.println("Error al crear ");
               
           }
           
-    
+    return con;
           
           
       }

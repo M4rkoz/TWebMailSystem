@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Presentacion;
+
 import Negocio.*;
 
 /**
@@ -11,10 +12,14 @@ import Negocio.*;
  * @author RedHat
  */
 public class Analizador {
+
     NCondominio ncondominio;
-    
-    
-    
+    NCalle ncalle;
+
+    public Analizador() {
+        ncondominio = new NCondominio();
+        ncalle = new NCalle();
+    }
 
     public String procesarPatron(String patron) {
         String resultado = "";
@@ -55,22 +60,31 @@ public class Analizador {
 
                 switch (crud) {
                     case "I": {
-                        System.out.println(patron + " INSERTARRRRRRRR:" + datos[0]);
-                        resultado = "El patron es:" + patron + " y LA OPERACION INSERTAR CON DATOS: " + datos[0];
-
+                        if (datos.length == 3) {
+                            resultado = ncondominio.setCondominio(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
                     }
                     break;
                     case "R": {
-                        System.out.println(patron + " LECTURAAAAAAAAAAAAAAA");
-                        resultado = "El patron es:" + patron + " y el OPERACION LECTURAAAA";
+                        resultado = ncondominio.getCondominios();
                     }
                     break;
-                     case "U": {
-                         System.out.println(patron + " ACTUALIZAR:" + datos[0]);
-                        resultado = "El patron es:" + patron + " y LA OPERACION ACTUALIZAR CON DATOS: " + datos[0];
+                    case "U": {
+                        if (datos.length == 3) {
+                            resultado = ncondominio.actualizarCondominio(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
                     }
                     break;
                     case "D": {
+                        if (datos.length == 1) {
+                            resultado = ncondominio.eliminar(datos);
+                        } else {
+                            resultado = "Error en la Ccantidad de Parametros";
+                        }
                     }
                     break;
                     default: {
@@ -84,24 +98,33 @@ public class Analizador {
 
             case "CALLE": {
 
-                System.out.println("El patron es:" + patron);
-
                 switch (crud) {
-                    case "C": {
-                        System.out.println(patron + " INSERTARRRRRRRR:" + datos[0]);
-                        resultado = "El patron es:" + patron + " y LA OPERACION INSERTAR CON DATOS: " + datos[0];
-
+                    case "I": {
+                        if (datos.length == 3) {
+                            resultado = ncalle.setCalle(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
                     }
                     break;
                     case "R": {
-                        System.out.println(patron + " LECTURAAAAAAAAAAAAAAA");
-                        resultado = "El patron es:" + patron + " y el OPERACION LECTURAAAA";
+                        resultado = ncalle.getCalles();
                     }
                     break;
                     case "U": {
+                        if (datos.length == 3) {
+                            resultado = ncalle.actualizarCalle(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
                     }
                     break;
                     case "D": {
+                        if (datos.length == 1) {
+                            resultado = ncalle.eliminar(datos);
+                        } else {
+                            resultado = "Error en la Ccantidad de Parametros";
+                        }
                     }
                     break;
                     default: {
@@ -113,12 +136,49 @@ public class Analizador {
             }
             break;
 
-            case "C3": {
+            case "SERVICIO": {
+
+                switch (crud) {
+                    case "I": {
+                        if (datos.length == 3) {
+                            resultado = ncalle.setCalle(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
+                    }
+                    break;
+                    case "R": {
+                        resultado = ncalle.getCalles();
+                    }
+                    break;
+                    case "U": {
+                        if (datos.length == 3) {
+                            resultado = ncalle.actualizarCalle(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
+                    }
+                    break;
+                    case "D": {
+                        if (datos.length == 1) {
+                            resultado = ncalle.eliminar(datos);
+                        } else {
+                            resultado = "Error en la Ccantidad de Parametros";
+                        }
+                    }
+                    break;
+                    default: {
+                        System.out.println("Error en la Peticion");
+                    }
+
+                }
 
             }
             break;
 
-            case "C4": {
+            case "USUARIO": {
+                
+                
 
             }
             break;
@@ -144,7 +204,7 @@ public class Analizador {
                 resultado = "Error en el patron no se pudo analizar";
             }
         }
-
+        System.out.println("Imprimiendo en el analizador" + resultado);
         return resultado;
     }
 

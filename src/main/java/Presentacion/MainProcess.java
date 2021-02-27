@@ -83,7 +83,7 @@ public class MainProcess {
               //Enviando Resultados al Email      
               smtp.sendEmail(patron,email, resultados,entradaSmtp,salidaSmtp);
               //Eliminando el Mensaje respondido
-          //    pop.eliminarMensaje(i, entradaPop, salidaPop);  //NO ELIMINAREOS LOS EMAIL, PARA PRACTICA.
+              pop.eliminarMensaje(i, entradaPop, salidaPop);  //NO ELIMINAREOS LOS EMAIL, PARA PRACTICA.
               
               System.out.println("El Email es: "+email);
               System.out.println("El patron es: "+patron);

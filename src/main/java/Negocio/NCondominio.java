@@ -20,11 +20,34 @@ public class NCondominio {
    
   
     public String setCondominio(String[] d){
-        return "";
+      
+        dcondominio.setCodigo(Integer.parseInt(d[0]));
+        dcondominio.setNombre(d[1]);
+         dcondominio.setDireccion(d[2]);
+      return dcondominio.registrar();
+      
+      
+        
     } 
     
-     public String getCondominios(String[] d){
-        return "";
+     public String getCondominios(){
+         
+         return  dcondominio.getCondominios();
+         
     } 
+     
+     public String actualizarCondominio(String[] d){
+        dcondominio.setCodigo(Integer.parseInt(d[0]));
+        dcondominio.setNombre(d[1]);
+         dcondominio.setDireccion(d[2]);
+       return  dcondominio.actualizar();
+         
+         
+     }
+     public String eliminar(String[] d){
+      dcondominio.setCodigo(Integer.parseInt(d[0]));
+       return dcondominio.eliminar();
+         
+     }
    
 }
