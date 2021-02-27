@@ -32,15 +32,7 @@ public class MainProcess {
     
     
     
-    public void process(){
-      
-         
-    
-        
-    
-    
-    }
-    
+   
     
     public void readMessages(){
       

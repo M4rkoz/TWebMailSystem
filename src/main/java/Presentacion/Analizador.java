@@ -15,10 +15,14 @@ public class Analizador {
 
     NCondominio ncondominio;
     NCalle ncalle;
+    NServicio nservicio;
+    NCasa ncasa;
 
     public Analizador() {
         ncondominio = new NCondominio();
         ncalle = new NCalle();
+        nservicio=new NServicio();
+        ncasa = new NCasa();
     }
 
     public String procesarPatron(String patron) {
@@ -141,19 +145,19 @@ public class Analizador {
                 switch (crud) {
                     case "I": {
                         if (datos.length == 3) {
-                            resultado = ncalle.setCalle(datos);
+                            resultado = nservicio.setServicio(datos);
                         } else {
                             resultado = "Error en la Cantidad de Parametros";
                         }
                     }
                     break;
                     case "R": {
-                        resultado = ncalle.getCalles();
+                        resultado = nservicio.getServicios();
                     }
                     break;
                     case "U": {
                         if (datos.length == 3) {
-                            resultado = ncalle.actualizarCalle(datos);
+                            resultado = nservicio.actualizarServicios(datos);
                         } else {
                             resultado = "Error en la Cantidad de Parametros";
                         }
@@ -161,7 +165,7 @@ public class Analizador {
                     break;
                     case "D": {
                         if (datos.length == 1) {
-                            resultado = ncalle.eliminar(datos);
+                            resultado = nservicio.eliminar(datos);
                         } else {
                             resultado = "Error en la Ccantidad de Parametros";
                         }
@@ -175,6 +179,50 @@ public class Analizador {
 
             }
             break;
+            case "CASA": {
+                switch (crud) {
+                    case "I": {
+                        if (datos.length == 4) {
+                            resultado = ncasa.setCasa(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
+                    }
+                    break;
+                    case "R": {
+                        resultado = ncasa.getCasas();
+                    }
+                    break;
+                    case "U": {
+                        if (datos.length == 4) {
+                            resultado = ncasa.actualizarCasa(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
+                    }
+                    break;
+                    case "D": {
+                        if (datos.length == 1) {
+                            resultado = ncasa.eliminar(datos);
+                        } else {
+                            resultado = "Error en la Ccantidad de Parametros";
+                        }
+                    }
+                    break;
+                    default: {
+                        System.out.println("Error en la Peticion");
+                    }
+                
+                
+              }
+            }
+            break;
+            case "COND_SERVICIO": {
+
+                
+                
+            }
+            break;
 
             case "USUARIO": {
                 
@@ -182,14 +230,8 @@ public class Analizador {
 
             }
             break;
-            case "C5": {
-
-            }
-            break;
-            case "C6": {
-
-            }
-            break;
+            
+            
             case "C7": {
 
             }

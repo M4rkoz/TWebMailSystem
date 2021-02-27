@@ -96,7 +96,7 @@ public class Condominio {
         }
              
         
-        System.out.println("REsultado:"+resultado); 
+  
         return linea.trim();
 
         

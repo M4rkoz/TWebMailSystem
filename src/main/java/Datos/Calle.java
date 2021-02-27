@@ -56,7 +56,7 @@ public class Calle {
         try{
             
         Statement st=pg.createStatement();
-        String query= "insert into condominio values("+this.numero+",'"+this.nombre+"','"+this.codigocondominio+"');";
+        String query= "insert into calle values("+this.numero+",'"+this.nombre+"',"+this.codigocondominio+");";
          if(st.executeUpdate(query)==1){
         res="El registro fue ingresado correctamente";
         }else{
@@ -110,7 +110,7 @@ public class Calle {
         try{
             
         Statement st=con.createStatement();
-        String query= "update calle set nombre='"+this.numero+"',direccion='"+this.nombre+"' where codigo='"+this.codigocondominio+"';";
+        String query= "update calle set nombre='"+this.nombre+"',codigocondominio="+this.codigocondominio+" where numero="+this.numero+";";
          if(st.executeUpdate(query)==1){
         res="El registro fue Actualizado";
         }else{
@@ -136,7 +136,7 @@ public class Calle {
         try{
             
         Statement st=con.createStatement();
-        String query= "delete from calle where codigo="+this.numero+"";
+        String query= "delete from calle where numero="+this.numero+"";
         if(st.executeUpdate(query)==1){
         res="El registro fue eliminado";
         }else{
