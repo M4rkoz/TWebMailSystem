@@ -17,12 +17,14 @@ public class Analizador {
     NCalle ncalle;
     NServicio nservicio;
     NCasa ncasa;
+    NMensaje nmensaje;
 
     public Analizador() {
         ncondominio = new NCondominio();
         ncalle = new NCalle();
         nservicio=new NServicio();
         ncasa = new NCasa();
+        nmensaje=new NMensaje();
     }
 
     public String procesarPatron(String patron) {
@@ -86,6 +88,13 @@ public class Analizador {
                     case "D": {
                         if (datos.length == 1) {
                             resultado = ncondominio.eliminar(datos);
+                        } else {
+                            resultado = "Error en la Ccantidad de Parametros";
+                        }
+                    }
+                     case "SERVICIOS": {
+                        if (datos.length == 1) {
+                            resultado = ncondominio.getCondominio_Servicio(datos);
                         } else {
                             resultado = "Error en la Ccantidad de Parametros";
                         }
@@ -218,12 +227,84 @@ public class Analizador {
             }
             break;
             case "COND_SERVICIO": {
-
+                
+                switch (crud) {
+                    case "I": {
+                        if (datos.length == 4) {
+                            resultado = ncondominio.setCondominio_servicio(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
+                    }
+                    break;
+                  
+                    case "U": {
+                        if (datos.length == 4) {
+                            resultado = ncondominio.actualizarCon_servicio(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
+                    }
+                    break;
+                    case "D": {
+                        if (datos.length == 1) {
+                            resultado = ncondominio.eliminarCon_servicio(datos);
+                        } else {
+                            resultado = "Error en la Ccantidad de Parametros";
+                        }
+                    }
+                    break;
+                    default: {
+                        System.out.println("Error en la Peticion");
+                    }
+                
+                
+              }
                 
                 
             }
             break;
+            case "MENSAJE": {
 
+                switch (crud) {
+                    case "I": {
+                        if (datos.length == 2) {
+                            resultado = nmensaje.setMensaje(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
+                    }
+                    break;
+                    case "R": {
+                        resultado = nmensaje.getMensajes();
+                    }
+                    break;
+                    case "U": {
+                        if (datos.length == 2) {
+                            resultado = nmensaje.actualizarMensaje(datos);
+                        } else {
+                            resultado = "Error en la Cantidad de Parametros";
+                        }
+                    }
+                    break;
+                    case "D": {
+                        if (datos.length == 1) {
+                            resultado = nmensaje.eliminar(datos);
+                        } else {
+                            resultado = "Error en la Ccantidad de Parametros";
+                        }
+                    }
+                    break;
+                    default: {
+                        System.out.println("Error en la Peticion");
+                    }
+
+                }
+                
+                
+            }
+            break;
+            
             case "USUARIO": {
                 
                 
@@ -231,11 +312,6 @@ public class Analizador {
             }
             break;
             
-            
-            case "C7": {
-
-            }
-            break;
             case "C8": {
 
             }

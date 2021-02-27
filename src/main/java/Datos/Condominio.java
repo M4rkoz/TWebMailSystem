@@ -155,6 +155,38 @@ public class Condominio {
     
     }
     
+    public String getServiciosdeCondominio(){
+      String resultado="";
+    String linea="";
+        Connection con=this.conexion.getConnection();
+        try {
+            Statement st=con.createStatement();
+            String query="select * from condominio as c INNER JOIN condominio_servicio as cs on c.codigo=cs.codigocondominio\n" +
+                         "INNER JOIN servicio as s on cs.codigoservicio=s.codigo\n" +
+                          "where c.codigo="+this.codigo+"";
+            ResultSet rs=st.executeQuery(query);
+            while(rs.next()){
+                for (int i = 1; i<=3; i++) {                    
+                 resultado=resultado+" | "+rs.getString(i).trim();          
+                }
+               
+               linea=linea+resultado.trim()+"</br>";
+                
+               resultado="";
+                
+            }
+            con.close();
+            
+        } catch (Exception e) {
+            System.out.println("Error en la lectura de condominios"+e);
+        }
+             
+        
+  
+        return linea.trim();
+    
+    }
+    
 
   
         

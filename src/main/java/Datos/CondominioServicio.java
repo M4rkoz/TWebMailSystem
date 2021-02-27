@@ -163,6 +163,9 @@ public class CondominioServicio {
         return res;
     
     }
+    
+    
+
       
       
       
